@@ -11,14 +11,14 @@ void BubbleSorting(T* Array, const int& SIZE, const bool& SortAsOrDesOrder = tru
 		{
 			if (SortAsOrDesOrder)
 			{
-				if (Array[j] > Array[j + 1])
+				if (Array[j] >= Array[j + 1])
 				{
 					std::swap(Array[j], Array[j + 1]);
 				}
 			}
 			else
 			{
-				if (Array[j] < Array[j + 1])
+				if (Array[j] <= Array[j + 1])
 				{
 					std::swap(Array[j], Array[j + 1]);
 				}
@@ -26,6 +26,44 @@ void BubbleSorting(T* Array, const int& SIZE, const bool& SortAsOrDesOrder = tru
 		}
 	}
 }
+
+
+
+/* Insertion sort with selection, sort in ascending or descending order */
+// Default sort in ascending order
+template <typename T>
+void InsertionSort(T* Array, const int& SIZE, const bool& SortAsOrDesOrder = true)
+{
+	int j;
+	T CurrentElement;
+	for (int i = 0; i < SIZE; ++i)
+	{
+		j = i - 1;
+		T CurrentElement = Array[i]; 
+
+		if (SortAsOrDesOrder)
+		{
+			while (j >= 0 && Array[j] > CurrentElement)
+			{
+				Array[j + 1] = Array[j];
+				--j;	
+			}
+		}
+		else
+		{
+			while (j >= 0 && Array[j] < CurrentElement)
+			{
+				Array[j + 1] = Array[j];
+				--j;
+			}
+		}
+
+		Array[j + 1] = CurrentElement;
+	}
+	
+}
+
+
 
 template <typename T>
 void PrintArray(T* Array, const int SIZE)
@@ -36,6 +74,7 @@ void PrintArray(T* Array, const int SIZE)
 	}
 }
 
+
 int main()
 {
 	int size = 10;
@@ -45,9 +84,11 @@ int main()
 
 	PrintArray(arr, size);
 
-	BubbleSorting(arr, size, false);
+	// BubbleSorting(arr, size, false);
+	// std::cout << std::endl << "BubbleSort! " << std::endl << std::endl;
 
-	std::cout << std::endl << "BubbleSort! " << std::endl << std::endl;
+	InsertionSort(arr, size, true);
+	std::cout << std::endl << "InsertionSort! " << std::endl << std::endl;
 
 	PrintArray(arr, size);
 
