@@ -1,12 +1,2 @@
 ﻿  main.cpp
-C:\Users\Barti\source\repos\Sorts\Sorts\main.cpp(38,4): warning C4101: CurrentElement: неиспользованная локальная переменная
-      C:\Users\Barti\source\repos\Sorts\Sorts\main.cpp(38,4):
-      контекст создания экземпляра шаблона (сначала самый старый)
-          C:\Users\Barti\source\repos\Sorts\Sorts\main.cpp(92,2):
-          выполняется компиляция ссылки на экземпляр шаблон функции "void InsertionSort<int>(T *,const int &,const bool &)"
-          with
-          [
-              T=int
-          ]
-  
   Sorts.vcxproj -> C:\Users\Barti\source\repos\Sorts\x64\Debug\SortsThatIKnown.exe

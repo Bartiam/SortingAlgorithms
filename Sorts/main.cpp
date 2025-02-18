@@ -3,7 +3,7 @@
 /* Bubble sort with selection, sort in ascending or descending order */
 // Default sort in ascending order
 template <typename T>
-void BubbleSorting(T* Array, const int& SIZE, const bool& SortAsOrDesOrder = true)
+void BubbleSorting(T Array[], const int& SIZE, const bool& SortAsOrDesOrder = true)
 {
 	for (int i = 0; i < SIZE; ++i)
 	{
@@ -32,21 +32,21 @@ void BubbleSorting(T* Array, const int& SIZE, const bool& SortAsOrDesOrder = tru
 /* Insertion sort with selection, sort in ascending or descending order */
 // Default sort in ascending order
 template <typename T>
-void InsertionSort(T* Array, const int& SIZE, const bool& SortAsOrDesOrder = true)
+void InsertionSort(T Array[], const int& SIZE, const bool& SortAsOrDesOrder = true)
 {
 	int j;
 	T CurrentElement;
 	for (int i = 0; i < SIZE; ++i)
 	{
 		j = i - 1;
-		T CurrentElement = Array[i]; 
+		T CurrentElement = Array[i];
 
 		if (SortAsOrDesOrder)
 		{
 			while (j >= 0 && Array[j] > CurrentElement)
 			{
 				Array[j + 1] = Array[j];
-				--j;	
+				--j;
 			}
 		}
 		else
@@ -60,19 +60,68 @@ void InsertionSort(T* Array, const int& SIZE, const bool& SortAsOrDesOrder = tru
 
 		Array[j + 1] = CurrentElement;
 	}
-	
+
 }
 
 
 
+
+template<typename T>
+void Heapify(T Array[], const int& SIZE, const int& index, const bool& MaxOrMin = true)
+{
+	int parentElement = index;
+	const int left = index * 2 + 1;
+	const int right = index * 2 + 2;
+
+	if (MaxOrMin)
+	{
+		if (left < SIZE && Array[left] > Array[parentElement]) parentElement = left;
+		if (right < SIZE && Array[right] > Array[parentElement]) parentElement = right;
+	}
+	else
+	{
+		if (left < SIZE && Array[left] < Array[parentElement]) parentElement = left;
+		if (right < SIZE && Array[right] < Array[parentElement]) parentElement = right;
+	}
+
+	if (parentElement != index)
+	{
+		std::swap(Array[index], Array[parentElement]);
+
+		Heapify(Array, SIZE, parentElement, MaxOrMin);
+	}
+
+}
+
+
+/* Heap sort with selection, sort in ascending or descending order */
+// Default sort in ascending order
+template<typename T>
+void HeapSort(T Array[], const int& SIZE, const bool& SortAsOrDesOrder = true)
+{
+	for (int i = SIZE / 2 - 1; i >= 0; --i)
+	{
+		Heapify(Array, SIZE, i, SortAsOrDesOrder);
+	}
+
+	for (int i = SIZE - 1; i > 0; --i)
+	{
+		std::swap(Array[0], Array[i]);
+
+		Heapify(Array, i, 0, SortAsOrDesOrder);
+	}
+}
+
+
 template <typename T>
-void PrintArray(T* Array, const int SIZE)
+void PrintArray(T Array[], const int SIZE)
 {
 	for (int i = 0; i < SIZE; ++i)
 	{
 		std::cout << "Element: " << i << " = " << Array[i] << std::endl;
 	}
 }
+
 
 
 int main()
@@ -82,14 +131,21 @@ int main()
 
 	std::cout << "Without sorting. " << std::endl << std::endl;
 
-	PrintArray(arr, size);
-
+	// PrintArray(arr, size);
+	// 
 	// BubbleSorting(arr, size, false);
 	// std::cout << std::endl << "BubbleSort! " << std::endl << std::endl;
+	// 
+	// InsertionSort(arr, size, true);
+	// std::cout << std::endl << "InsertionSort! " << std::endl << std::endl;
+	// 
+	// PrintArray(arr, size);
 
-	InsertionSort(arr, size, true);
-	std::cout << std::endl << "InsertionSort! " << std::endl << std::endl;
+	PrintArray(arr, size);
 
+	std::cout << std::endl << "HeapSort! " << std::endl << std::endl;
+	HeapSort(arr, size, true);
+	
 	PrintArray(arr, size);
 
 	return 0;
