@@ -124,6 +124,27 @@ void PrintArray(T Array[], const int SIZE)
 
 
 
+class Animal
+{
+public:
+	virtual void Voice()
+	{
+		std::cout << "Some sounds." << std::endl;
+	}
+};
+
+
+class Dog : public Animal
+{
+public:
+	virtual void Voice() override
+	{
+		std::cout << "BARK! BARK! BARK! " << std::endl;
+	}
+};
+
+
+
 int main()
 {
 	int size = 10;
@@ -148,5 +169,7 @@ int main()
 	
 	PrintArray(arr, size);
 
+
+	delete[] arr;
 	return 0;
 }
